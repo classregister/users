@@ -44,3 +44,4 @@ dependencies {
 }
 
 apply from: 'gradle/docker.gradle'
+apply from: 'gradle/wrapper.gradle'
