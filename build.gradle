@@ -1,0 +1,43 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+jar {
+	baseName = 'users'
+	version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	jcenter()
+}
+
+configurations {
+	compile.exclude module: "spring-boot-starter-tomcat"
+	testCompile.exclude module : 'spring-boot-starter-logging'
+}
+
+dependencies {
+	compile("org.springframework.boot:spring-boot-starter-web:${spring_boot_version}")
+	compile("org.springframework.boot:spring-boot-starter-undertow:${spring_boot_version}")
+	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+	compile("org.postgresql:postgresql")
+	compile("org.apache.commons:commons-lang3:${apache_commons_version}")
+
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+	testCompile("com.h2database:h2:1.4.193")
+	testCompile("pl.pojo:pojo-tester:${pojo_tester_version}")
+}
