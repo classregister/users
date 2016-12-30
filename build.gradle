@@ -5,6 +5,7 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}")
+		classpath("se.transmode.gradle:gradle-docker:${docker_plugin_version}")
 	}
 }
 
@@ -41,3 +42,5 @@ dependencies {
 	testCompile("com.h2database:h2:1.4.193")
 	testCompile("pl.pojo:pojo-tester:${pojo_tester_version}")
 }
+
+apply from: 'gradle/docker.gradle'

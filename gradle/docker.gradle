@@ -1,0 +1,14 @@
+apply plugin: 'docker'
+
+task buildDocker(type: Docker, dependsOn: build) {
+    push = false
+    applicationName = "users"
+    tagVersion="0.0.1-SNAPSHOT"
+    dockerfile = file('src/main/docker/Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
+}
