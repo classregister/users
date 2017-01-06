@@ -7,11 +7,6 @@
         </encoder>
     </appender>
 
-    <logger name="ovh.classregister.users" additivity="false">
-        <level value="DEBUG" />
-        <appender-ref ref="consoleAppender" />
-    </logger>
-
     <root>
         <level value="INFO" />
         <appender-ref ref="consoleAppender" />
