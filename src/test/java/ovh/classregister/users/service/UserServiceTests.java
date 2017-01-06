@@ -1,7 +1,7 @@
 package ovh.classregister.users.service;
 
 import org.junit.*;
-import org.springframework.dao.EmptyResultDataAccessException;
+import ovh.classregister.users.exception.ResourceNotFoundException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import ovh.classregister.users.domain.User;
@@ -61,7 +61,7 @@ public class UserServiceTests {
         Throwable result = (catchThrowable(() -> userService.getUser(userId)));
 
         // then
-        assertThat(result).isInstanceOf(EmptyResultDataAccessException.class);
+        assertThat(result).isInstanceOf(ResourceNotFoundException.class);
     }
 
     @Test
@@ -103,7 +103,7 @@ public class UserServiceTests {
         Throwable result = (catchThrowable(() -> userService.editUser(userId, userBody)));
 
         //then
-        assertThat(result).isInstanceOf(EmptyResultDataAccessException.class);
+        assertThat(result).isInstanceOf(ResourceNotFoundException.class);
     }
 
     @Test
@@ -129,7 +129,7 @@ public class UserServiceTests {
         Throwable result = (catchThrowable(() -> userService.deleteUser(userId)));
 
         // then
-        assertThat(result).isInstanceOf(EmptyResultDataAccessException.class);
+        assertThat(result).isInstanceOf(ResourceNotFoundException.class);
     }
 
     private User createUser(long id, String login, String password) {

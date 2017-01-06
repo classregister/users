@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import ovh.classregister.users.domain.User;
 import ovh.classregister.users.domain.UserBody;
 import ovh.classregister.users.domain.UserRepository;
+import ovh.classregister.users.exception.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -53,7 +54,7 @@ public class UserService {
 
     private void checkRecordId(long id) {
         if(!userRepository.exists(id)) {
-            throw new EmptyResultDataAccessException(1);
+            throw new ResourceNotFoundException(id);
         }
     }
 }
