@@ -37,6 +37,9 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-data-jpa")
 	compile("org.postgresql:postgresql")
 	compile("org.apache.commons:commons-lang3:${apache_commons_version}")
+	compile("org.zalando:problem-spring-web:${zalando_problem_spring_version}")
+	compile("org.zalando:problem:${zalando_problem_version}")
+	compile("org.zalando:jackson-datatype-problem:${zalando_problem_version}")
 
 	testCompile("org.springframework.boot:spring-boot-starter-test")
 	testCompile("com.h2database:h2:1.4.193")
