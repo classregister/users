@@ -7,8 +7,9 @@ services:
     cap_drop:
           - ALL
     volumes:
-          - /home/blacklightning/dev/conf:/config:ro
-          - /home/blacklightning/dev/certs:/certs:ro
+          - /conf:/config:ro
+          - /certs:/certs:ro
+          - /log
     ports:
           - "6002:6002"
     depends_on:
