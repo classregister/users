@@ -6,6 +6,7 @@ buildscript {
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}")
 		classpath("se.transmode.gradle:gradle-docker:${docker_plugin_version}")
+		classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:${sonarqube_gradle_plugin_version}"
 	}
 }
 
@@ -14,8 +15,8 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 jar {
-	baseName = 'users'
-	version = '0.0.1-SNAPSHOT'
+	baseName = application_name
+	version = application_version
 }
 
 sourceCompatibility = 1.8
@@ -41,10 +42,12 @@ dependencies {
 	compile("org.zalando:problem:${zalando_problem_version}")
 	compile("org.zalando:jackson-datatype-problem:${zalando_problem_version}")
 
+
 	testCompile("org.springframework.boot:spring-boot-starter-test")
-	testCompile("com.h2database:h2:1.4.193")
+	testCompile("com.h2database:h2:${h2_database_version}")
 	testCompile("pl.pojo:pojo-tester:${pojo_tester_version}")
 }
 
 apply from: 'gradle/docker.gradle'
 apply from: 'gradle/wrapper.gradle'
+apply from: 'gradle/sonar.gradle'
