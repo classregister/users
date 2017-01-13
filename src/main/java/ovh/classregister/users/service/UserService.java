@@ -1,12 +1,9 @@
 package ovh.classregister.users.service;
 
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ovh.classregister.users.domain.User;
-import ovh.classregister.users.domain.UserBody;
-import ovh.classregister.users.domain.UserRepository;
+import ovh.classregister.users.domain.*;
 import ovh.classregister.users.exception.ResourceNotFoundException;
 
 @Service
