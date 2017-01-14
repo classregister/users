@@ -16,6 +16,9 @@ node {
         }
     }
 
+    stage ('mutation tests')
+    sh './gradlew pitest'
+
   }catch(e){
     currentBuild.result = "FAILURE"
     throw e;
