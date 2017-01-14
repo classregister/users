@@ -1,0 +1,8 @@
+apply plugin: 'info.solidsoft.pitest'
+
+pitest {
+    targetClasses = ['ovh.classregister.users.*']
+    pitestVersion = pitest_version
+    threads = 4
+    outputFormats = ['XML', 'HTML']
+}
