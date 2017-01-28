@@ -1,17 +1,20 @@
 package ovh.classregister.users.service;
 
-import org.junit.*;
-import ovh.classregister.users.exception.ResourceNotFoundException;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.internal.util.reflection.Whitebox.setInternalState;
 import ovh.classregister.users.domain.User;
 import ovh.classregister.users.domain.UserBody;
 import ovh.classregister.users.domain.UserRepository;
+import ovh.classregister.users.exception.ResourceNotFoundException;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
-import static org.mockito.Mockito.*;
-import static org.mockito.internal.util.reflection.Whitebox.setInternalState;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 public class UserServiceTests {
 

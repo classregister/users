@@ -1,17 +1,19 @@
 package ovh.classregister.users.domain;
 
+import static com.google.common.collect.Lists.newArrayList;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.transaction.BeforeTransaction;
 
 import java.util.List;
-
-import static com.google.common.collect.Lists.newArrayList;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -72,7 +74,7 @@ public class UserRepositoryTests {
     public void shouldAddUser() {
         // given
         long userId = 4L;
-        User user = createUser(0,"user4", "password");
+        User user = createUser(0, "user4", "password");
         User expectedUser = createUser(userId, "user4", "password");
 
         // when

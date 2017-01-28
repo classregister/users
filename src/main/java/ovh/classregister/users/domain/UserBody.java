@@ -1,16 +1,16 @@
 package ovh.classregister.users.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.NotNull;
-
 public class UserBody {
 
-    @NotNull
+    @NotBlank
     private String login;
 
-    @NotNull
+    @NotBlank
     private String password;
 
     @JsonCreator

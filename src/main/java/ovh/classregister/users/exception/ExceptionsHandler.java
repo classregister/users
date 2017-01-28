@@ -1,5 +1,7 @@
 package ovh.classregister.users.exception;
 
+import static javax.ws.rs.core.Response.Status.NOT_FOUND;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -9,10 +11,8 @@ import org.zalando.problem.spring.web.advice.ProblemHandling;
 
 import java.net.URI;
 
-import static javax.ws.rs.core.Response.Status.NOT_FOUND;
-
 @ControllerAdvice
-public class ExceptionHander implements ProblemHandling {
+public class ExceptionsHandler implements ProblemHandling {
 
     private static final String DETAIL = "User with id: %d not found";
 
