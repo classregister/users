@@ -19,7 +19,10 @@ node {
     stage ('mutation tests')
     sh './gradlew pitest'
 
-  }catch(e){
+    stage ('acceptance tests')
+    sh './gradlew cucumber'
+
+  } catch(e){
     currentBuild.result = "FAILURE"
     throw e;
   }

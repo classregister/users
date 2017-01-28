@@ -1,5 +1,11 @@
 package ovh.classregister.users.exception;
 
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import ovh.classregister.users.web.UserController;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,15 +13,9 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import ovh.classregister.users.web.UserController;
-
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ExceptionHandlerTest {
+public class ExceptionsHandlerTest {
 
     private MockMvc mockMvc;
 
@@ -25,7 +25,7 @@ public class ExceptionHandlerTest {
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.standaloneSetup(userController)
-                                      .setControllerAdvice(new ExceptionHander())
+                                      .setControllerAdvice(new ExceptionsHandler())
                                       .build();
     }
 

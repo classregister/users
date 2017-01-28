@@ -4,16 +4,18 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}")
-        classpath("se.transmode.gradle:gradle-docker:${docker_plugin_version}")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}"
+        classpath "se.transmode.gradle:gradle-docker:${docker_plugin_version}"
         classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:${sonarqube_gradle_plugin_version}"
         classpath "info.solidsoft.gradle.pitest:gradle-pitest-plugin:${pitest_version}"
+        classpath "com.github.samueltbrown:gradle-cucumber-plugin:${cucumber_gradle_plugin_version}"
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+
 
 jar {
     baseName = application_name
@@ -43,7 +45,6 @@ dependencies {
     compile("org.zalando:problem:${zalando_problem_version}")
     compile("org.zalando:jackson-datatype-problem:${zalando_problem_version}")
 
-
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("com.h2database:h2:${h2_database_version}")
     testCompile("pl.pojo:pojo-tester:${pojo_tester_version}")
@@ -53,3 +54,4 @@ apply from: 'gradle/docker.gradle'
 apply from: 'gradle/wrapper.gradle'
 apply from: 'gradle/sonar.gradle'
 apply from: 'gradle/pitest.gradle'
+apply from: 'gradle/cucumber.gradle'

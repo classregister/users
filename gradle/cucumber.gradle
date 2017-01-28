@@ -1,0 +1,14 @@
+apply plugin: 'com.github.samueltbrown.cucumber'
+
+dependencies {
+    cucumberCompile("info.cukes:cucumber-java:${cucumber_version}")
+    cucumberCompile("info.cukes:cucumber-spring:${cucumber_version}")
+    cucumberCompile("info.cukes:cucumber-junit:${cucumber_version}")
+}
+
+cucumber {
+    formats = ['pretty', 'json:build/cucumber/cucumber.json', 'junit:build/cucumber/cucumber.xml', 'html:build/cucumber/html']
+    tags = ['~@Ignore']
+    glueDirs = ['src/cucumber/java']
+    featureDirs = ['src/cucumber/resources']
+}
