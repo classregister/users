@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ExceptionsHandlerTest {
+public class ProblemControllerAdviceTest {
 
     private MockMvc mockMvc;
 
@@ -25,7 +25,7 @@ public class ExceptionsHandlerTest {
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.standaloneSetup(userController)
-                                      .setControllerAdvice(new ExceptionsHandler())
+                                      .setControllerAdvice(new ProblemControllerAdvice())
                                       .build();
     }
 

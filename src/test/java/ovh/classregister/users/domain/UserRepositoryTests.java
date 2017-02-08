@@ -1,7 +1,7 @@
 package ovh.classregister.users.domain;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.util.Lists.newArrayList;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -108,7 +108,7 @@ public class UserRepositoryTests {
         userRepository.delete(userId);
 
         // then
-        assertThat(userRepository.findAll()).usingRecursiveFieldByFieldElementComparator()
+        assertThat(userRepository.findAll()).usingFieldByFieldElementComparator()
                                             .isEqualTo(expectedResult);
     }
 

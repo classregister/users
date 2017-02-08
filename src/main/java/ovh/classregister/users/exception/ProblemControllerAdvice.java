@@ -12,7 +12,7 @@ import org.zalando.problem.spring.web.advice.ProblemHandling;
 import java.net.URI;
 
 @ControllerAdvice
-public class ExceptionsHandler implements ProblemHandling {
+public class ProblemControllerAdvice implements ProblemHandling {
 
     private static final String DETAIL = "User with id: %d not found";
 
