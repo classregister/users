@@ -22,6 +22,9 @@ node {
     stage ('acceptance tests')
     sh './gradlew cucumber'
 
+    stage ('contract tests')
+    sh './gradlew cdcTest'
+
   } catch(e){
     currentBuild.result = "FAILURE"
     throw e;

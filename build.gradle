@@ -9,6 +9,8 @@ buildscript {
         classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:${sonarqube_gradle_plugin_version}"
         classpath "info.solidsoft.gradle.pitest:gradle-pitest-plugin:${pitest_version}"
         classpath "com.github.samueltbrown:gradle-cucumber-plugin:${cucumber_gradle_plugin_version}"
+        classpath "io.spring.gradle:dependency-management-plugin:${depencency_management_plugin_version}"
+        classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${contracts_version}"
     }
 }
 
@@ -28,6 +30,10 @@ targetCompatibility = 1.8
 repositories {
     mavenCentral()
     jcenter()
+}
+
+test {
+    exclude '**/*Cdc*'
 }
 
 configurations {
@@ -55,3 +61,5 @@ apply from: 'gradle/wrapper.gradle'
 apply from: 'gradle/sonar.gradle'
 apply from: 'gradle/pitest.gradle'
 apply from: 'gradle/cucumber.gradle'
+apply from: 'gradle/cdc.gradle'
+
