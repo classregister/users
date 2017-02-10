@@ -25,6 +25,23 @@ node {
     stage ('contract tests')
     sh './gradlew cdcTest'
 
+    stage ('publishing jars') {
+       def server = Artifactory.server "artifactory_docker"
+
+       def jars = """{
+          "files": [
+                {
+                    "pattern": "build/libs/*.jar",
+                    "target": "libs-snapshot-local/ovh/classregister/users/"
+                }
+            ]
+       }"""
+
+       def buildInfo = server.upload spec: jars
+
+       server.publishBuildInfo buildInfo
+    }
+
   } catch(e){
     currentBuild.result = "FAILURE"
     throw e;

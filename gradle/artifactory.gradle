@@ -1,0 +1,36 @@
+apply plugin: 'com.jfrog.artifactory'
+apply plugin: 'maven-publish'
+
+artifactory {
+	contextUrl = "${artifactory_contextUrl}"
+	publish {
+		repository {
+			repoKey = "${artifactory_repoKey}"
+			username = "${artifactory_user}"
+			password = "${artifactory_password}"
+		}
+		defaults {
+			publications('mavenJava', 'stubs')
+		}
+	}
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			groupId "${application_groupId}"
+			artifactId "${application_name}"
+			version "${application_version}"
+
+			from components.java
+		}
+
+		stubs(MavenPublication) {
+			groupId "${application_groupId}"
+			artifactId "${application_name}"
+			version "${application_version}"
+
+			artifact verifierStubsJar
+		}
+	}
+}
