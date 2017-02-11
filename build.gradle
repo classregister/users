@@ -1,17 +1,18 @@
 buildscript {
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-    dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}"
-        classpath "se.transmode.gradle:gradle-docker:${docker_plugin_version}"
-        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:${sonarqube_gradle_plugin_version}"
-        classpath "info.solidsoft.gradle.pitest:gradle-pitest-plugin:${pitest_version}"
-        classpath "com.github.samueltbrown:gradle-cucumber-plugin:${cucumber_gradle_plugin_version}"
-        classpath "io.spring.gradle:dependency-management-plugin:${depencency_management_plugin_version}"
-        classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${contracts_version}"
-    }
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_version}"
+		classpath "se.transmode.gradle:gradle-docker:${docker_plugin_version}"
+		classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:${sonarqube_gradle_plugin_version}"
+		classpath "info.solidsoft.gradle.pitest:gradle-pitest-plugin:${pitest_version}"
+		classpath "com.github.samueltbrown:gradle-cucumber-plugin:${cucumber_gradle_plugin_version}"
+		classpath "io.spring.gradle:dependency-management-plugin:${depencency_management_plugin_version}"
+		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${contracts_version}"
+		classpath "org.jfrog.buildinfo:build-info-extractor-gradle:${artifactory_plugin_version}"
+	}
 }
 
 apply plugin: 'java'
@@ -20,40 +21,40 @@ apply plugin: 'org.springframework.boot'
 
 
 jar {
-    baseName = application_name
-    version = application_version
+	baseName = application_name
+	version = application_version
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-    mavenCentral()
-    jcenter()
+	mavenCentral()
+	jcenter()
 }
 
 test {
-    exclude '**/*Cdc*'
+	exclude '**/*Cdc*'
 }
 
 configurations {
-    compile.exclude module: "spring-boot-starter-tomcat"
-    testCompile.exclude module: 'spring-boot-starter-logging'
+	compile.exclude module: "spring-boot-starter-tomcat"
+	testCompile.exclude module: 'spring-boot-starter-logging'
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web:${spring_boot_version}")
-    compile("org.springframework.boot:spring-boot-starter-undertow:${spring_boot_version}")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("org.postgresql:postgresql")
-    compile("org.apache.commons:commons-lang3:${apache_commons_version}")
-    compile("org.zalando:problem-spring-web:${zalando_problem_spring_version}")
-    compile("org.zalando:problem:${zalando_problem_version}")
-    compile("org.zalando:jackson-datatype-problem:${zalando_problem_version}")
+	compile("org.springframework.boot:spring-boot-starter-web:${spring_boot_version}")
+	compile("org.springframework.boot:spring-boot-starter-undertow:${spring_boot_version}")
+	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+	compile("org.postgresql:postgresql")
+	compile("org.apache.commons:commons-lang3:${apache_commons_version}")
+	compile("org.zalando:problem-spring-web:${zalando_problem_spring_version}")
+	compile("org.zalando:problem:${zalando_problem_version}")
+	compile("org.zalando:jackson-datatype-problem:${zalando_problem_version}")
 
-    testCompile("org.springframework.boot:spring-boot-starter-test")
-    testCompile("com.h2database:h2:${h2_database_version}")
-    testCompile("pl.pojo:pojo-tester:${pojo_tester_version}")
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+	testCompile("com.h2database:h2:${h2_database_version}")
+	testCompile("pl.pojo:pojo-tester:${pojo_tester_version}")
 }
 
 apply from: 'gradle/docker.gradle'
@@ -62,4 +63,5 @@ apply from: 'gradle/sonar.gradle'
 apply from: 'gradle/pitest.gradle'
 apply from: 'gradle/cucumber.gradle'
 apply from: 'gradle/cdc.gradle'
+apply from: 'gradle/artifactory.gradle'
 

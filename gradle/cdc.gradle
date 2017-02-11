@@ -28,3 +28,7 @@ contracts {
 task cdcTest(type: Test) {
     exclude '**/*Test*'
 }
+
+verifierStubsJar {
+    baseName = application_name
+}
