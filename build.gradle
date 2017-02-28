@@ -40,6 +40,7 @@ test {
 configurations {
 	compile.exclude module: "spring-boot-starter-tomcat"
 	testCompile.exclude module: 'spring-boot-starter-logging'
+	testCompile.exclude module: 'slf4j-simple'
 }
 
 dependencies {
@@ -66,4 +67,5 @@ apply from: 'gradle/pitest.gradle'
 apply from: 'gradle/cucumber.gradle'
 apply from: 'gradle/cdc.gradle'
 apply from: 'gradle/artifactory.gradle'
+apply from: 'gradle/gatling.gradle'
 
