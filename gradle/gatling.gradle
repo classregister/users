@@ -1,0 +1,18 @@
+dependencies {
+	testCompile("io.gatling.highcharts:gatling-charts-highcharts:${gatling_plugin_version}")
+}
+
+apply plugin: 'scala'
+
+task loadTest(type: JavaExec) {
+	dependsOn testClasses
+	description = "load test with Gatling"
+	group = "Load Test"
+	classpath = sourceSets.test.runtimeClasspath
+	main = "io.gatling.app.Gatling"
+	args = [
+			"--simulation", "ovh.classregister.users.UsersSimulation",
+			"--results-folder", "${buildDir}/test-results/gatling",
+			"--binaries-folder", sourceSets.test.output.classesDir.toString()
+	]
+}
