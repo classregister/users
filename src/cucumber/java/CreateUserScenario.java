@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ContextConfiguration(classes = UsersApplication.class)
 @TestPropertySource(value = "classpath:application-test.properties")
-public class CreateUser {
+public class CreateUserScenario {
 
     private final RestTemplate restTemplate = new RestTemplate();
 

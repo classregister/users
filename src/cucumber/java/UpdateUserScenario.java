@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ContextConfiguration(classes = UsersApplication.class)
 @TestPropertySource(value = "classpath:application-test.properties")
-public class UpdateUser {
+public class UpdateUserScenario {
 
     private RestTemplate restTemplate = new RestTemplate();
 
@@ -47,7 +47,7 @@ public class UpdateUser {
         response = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, User.class);
     }
 
-    @Then("^the client receives status code of (\\d+) - succesful update$")
+    @Then("^the client receives status code of (\\d+) - successful update$")
     public void checkStatusCode(int arg1) throws Throwable {
         assertThat(response.getStatusCode()
                            .value()).isEqualTo(arg1);

@@ -23,21 +23,18 @@ node {
 		stage('acceptance tests') {
 		    sh './gradlew cucumber'
         }
-		stage('contract tests') {
-		    sh './gradlew cdcTest'
-		}
 
 		stage('publishing jars') {
 			def server = Artifactory.server "artifactory_docker"
 
 			def jars = """{
-          "files": [
+                "files": [
                 {
                     "pattern": "build/libs/*.jar",
                     "target": "libs-snapshot-local/ovh/classregister/users/"
                 }
-            ]
-       }"""
+                ]
+            }"""
 
 			def buildInfo = server.upload spec: jars
 

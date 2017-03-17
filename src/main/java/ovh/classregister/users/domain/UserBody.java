@@ -26,5 +26,4 @@ public class UserBody {
     public String getPassword() {
         return password;
     }
-
 }
