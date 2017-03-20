@@ -11,7 +11,7 @@ services:
           - POSTGRES_PASSWORD=changeit
 
   users:
-    image: users:0.1.0-SNAPSHOT
+    image: users:0.1.0
     container_name: classregister_users
     cap_drop:
           - ALL
