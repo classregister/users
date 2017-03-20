@@ -1,15 +1,15 @@
 package ovh.classregister.users.domain;
 
-import org.junit.Test;
-import pl.pojo.tester.api.assertion.Method;
-
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsForAll;
+import pl.pojo.tester.api.assertion.Method;
+
+import org.junit.Test;
 
 public class PojoTests {
 
     @Test
-    public void shouldPassAllPojoTests() {
+    public void shouldTestUserClass() {
         // given
         final Class<?> classesUnderTests = User.class;
 
@@ -20,7 +20,7 @@ public class PojoTests {
     }
 
     @Test
-    public void shouldPassGetterAndContructorTests() {
+    public void shouldTestUserBodyClass() {
         // given
         final Class<?> classesUnderTests = UserBody.class;
 

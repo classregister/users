@@ -15,9 +15,9 @@ buildscript {
 	}
 }
 
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "org.springframework.boot"
 
 
 jar {
@@ -25,22 +25,18 @@ jar {
 	version = application_version
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = java_version
+targetCompatibility = java_version
 
 repositories {
 	mavenCentral()
 	jcenter()
 }
 
-test {
-	exclude '**/*Cdc*'
-}
-
 configurations {
 	compile.exclude module: "spring-boot-starter-tomcat"
-	testCompile.exclude module: 'spring-boot-starter-logging'
-	testCompile.exclude module: 'slf4j-simple'
+	testCompile.exclude module: "spring-boot-starter-logging"
+	testCompile.exclude module: "slf4j-simple"
 }
 
 dependencies {
@@ -60,12 +56,12 @@ dependencies {
 	testCompile("pl.pojo:pojo-tester:${pojo_tester_version}")
 }
 
-apply from: 'gradle/docker.gradle'
-apply from: 'gradle/wrapper.gradle'
-apply from: 'gradle/sonar.gradle'
-apply from: 'gradle/pitest.gradle'
-apply from: 'gradle/cucumber.gradle'
-apply from: 'gradle/cdc.gradle'
-apply from: 'gradle/artifactory.gradle'
-apply from: 'gradle/gatling.gradle'
+apply from: "gradle/docker.gradle"
+apply from: "gradle/wrapper.gradle"
+apply from: "gradle/sonar.gradle"
+apply from: "gradle/pitest.gradle"
+apply from: "gradle/cucumber.gradle"
+apply from: "gradle/cdc.gradle"
+apply from: "gradle/artifactory.gradle"
+apply from: "gradle/gatling.gradle"
 

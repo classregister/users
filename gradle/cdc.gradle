@@ -9,10 +9,10 @@ apply plugin: 'spring-cloud-contract'
 apply plugin: 'groovy'
 
 dependencies {
-    testCompile 'org.springframework.cloud:spring-cloud-starter-contract-verifier'
-    testCompile 'org.codehaus.groovy:groovy-all:2.4.6'
-    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
-    testCompile 'org.spockframework:spock-spring:1.0-groovy-2.4'
+    testCompile "org.springframework.cloud:spring-cloud-starter-contract-verifier"
+    testCompile "org.codehaus.groovy:groovy-all:${groovy_version}"
+    testCompile "org.spockframework:spock-core:${spock_version}"
+    testCompile "org.spockframework:spock-spring:${spock_version}"
 }
 
 contracts {
@@ -23,10 +23,6 @@ contracts {
     contractsDslDir = project.file("${project.rootDir}/src/test/resources/contracts")
     generatedTestSourcesDir = project.file("${project.buildDir}/contracts")
     stubsOutputDir = project.file("${project.buildDir}/stubs")
-}
-
-task cdcTest(type: Test) {
-    exclude '**/*Test*'
 }
 
 verifierStubsJar {

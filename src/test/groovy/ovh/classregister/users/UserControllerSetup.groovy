@@ -41,8 +41,8 @@ class UserControllerSetup {
 		doThrow(new ResourceNotFoundException(2)).when(userService)
 		                                         .deleteUser(2)
 
-		doAnswer(userUpdateAnswer()).when(userService)
-		                            .editUser(anyLong(), any(UserBody.class))
+		doAnswer(updateUser()).when(userService)
+		                      .editUser(anyLong(), any(UserBody.class))
 
 		return userController
 	}
@@ -52,17 +52,16 @@ class UserControllerSetup {
 		Pageable pageable = new PageRequest(1, 10)
 		long totalElements = 1
 
-		new PageImpl<User>(users, pageable, totalElements)
+		return new PageImpl<User>(users, pageable, totalElements)
 	}
 
 	private static User createUser() {
-		new User(id: USER_ID, login: USER_LOGIN, password: USER_PASSWORD)
+		return new User(id: USER_ID, login: USER_LOGIN, password: USER_PASSWORD)
 	}
 
-	private static Answer<User> userUpdateAnswer() {
-		new Answer<User>() {
-			@Override
-			User answer(final InvocationOnMock invocation) throws Throwable {
+	private static Answer<User> updateUser() {
+		{
+			InvocationOnMock invocation ->
 				Object[] arguments = invocation.getArguments()
 				long id = (long) arguments[0]
 				if (id == 1L) {
@@ -70,8 +69,6 @@ class UserControllerSetup {
 				}
 
 				throw new ResourceNotFoundException(2)
-			}
 		}
-
 	}
 }

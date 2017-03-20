@@ -15,13 +15,12 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ContextConfiguration(classes = UsersApplication.class)
 @TestPropertySource(value = "classpath:application-test.properties")
-public class DeleteUser {
+public class DeleteUserScenario {
 
     private static final int USER_ID = 2;
     private static final String NOT_FOUND = "404 Not Found";
 
     private RestTemplate restTemplate = new RestTemplate();
-
 
     @Given("^the user already exists$")
     public void prepareExampleUserData() throws Throwable {

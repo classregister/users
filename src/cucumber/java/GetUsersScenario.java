@@ -7,40 +7,47 @@ import ovh.classregister.users.domain.User;
 import ovh.classregister.users.domain.UserBody;
 
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ContextConfiguration(classes = UsersApplication.class)
 @TestPropertySource(value = "classpath:application-test.properties")
-public class GetUser {
+public class GetUsersScenario {
 
     private static final String USER_LOGIN = "userLogin3";
     private static final String USER_PASSWORD = "userPassword3";
-    private static final int USER_ID = 3;
+    private static final int TOTAL_ELEMENTS = 5;
     private final RestTemplate restTemplate = new RestTemplate();
 
-    private ResponseEntity<User> response;
+    private ResponseEntity<Object> response;
 
-    @Given("^the example user data$")
-    public void preparedExampleUserData() throws Throwable {
+    @Given("^the example users data$")
+    public void preparedExampleUsersData() throws Throwable {
         UserBody userBody = new UserBody(USER_LOGIN, USER_PASSWORD);
+        restTemplate.postForEntity(CucumberConfig.URL, userBody, User.class);
+        restTemplate.postForEntity(CucumberConfig.URL, userBody, User.class);
         restTemplate.postForEntity(CucumberConfig.URL, userBody, User.class);
     }
 
-    @When("^the client makes a call to get user data$")
-    public void getUserData() throws Throwable {
-        String url = CucumberConfig.URL + USER_ID;
-        response = restTemplate.getForEntity(url, User.class);
+    @When("^the client makes a call to get users")
+    public void getUsersData() throws Throwable {
+        HttpEntity<Object> httpEntity = null;
+        response = restTemplate.exchange(CucumberConfig.URL, HttpMethod.GET, httpEntity, Object.class);
     }
 
-    @Then("^the client receives user with proper values$")
+    @Then("^the client receives list of users$")
     public void checkReceivedDataFromResponse() throws Throwable {
-        User result = response.getBody();
-        assertThat(result.getId()).isEqualTo(USER_ID);
-        assertThat(result.getLogin()).isEqualTo(USER_LOGIN);
-        assertThat(result.getPassword()).isEqualTo(USER_PASSWORD);
+        Map<String, Object> result = (LinkedHashMap<String, Object>) response.getBody();
+        List<User> content = (List<User>) result.get("content");
+        assertThat(content).hasSize(TOTAL_ELEMENTS);
     }
 }

@@ -17,7 +17,8 @@ class UsersSimulation extends Simulation {
       UserTasks.getUsersTask,
       UserTasks.updateUserTask,
       UserTasks.deleteUserTask
-    )
+  )
 
-  setUp(userScenario.inject(rampUsers(200) over (1 seconds))).protocols(httpProtocol)
+  // 30000 requests in 60 seconds
+  setUp(userScenario.inject(rampUsers(6000) over (60 seconds))).protocols(httpProtocol)
 }
