@@ -26,5 +26,5 @@ contracts {
 }
 
 verifierStubsJar {
-    baseName = application_name
+    baseName = application_name.concat("-").concat(application_version)
 }
