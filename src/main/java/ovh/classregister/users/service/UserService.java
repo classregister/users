@@ -1,10 +1,13 @@
 package ovh.classregister.users.service;
 
+import ovh.classregister.users.domain.User;
+import ovh.classregister.users.domain.UserBody;
+import ovh.classregister.users.domain.UserRepository;
+import ovh.classregister.users.exception.ResourceNotFoundException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ovh.classregister.users.domain.*;
-import ovh.classregister.users.exception.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -15,7 +18,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Page<User> getUsers(final Pageable pageable) {
+    public Page<User> getUsers(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
 
@@ -29,7 +32,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User editUser(final long id, UserBody userBody) {
+    public User editUser(long id, UserBody userBody) {
         checkRecordId(id);
         final User user = createUser(userBody);
         user.setId(id);

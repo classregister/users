@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.transaction.BeforeTransaction;
 
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@TestPropertySource(value = "classpath:application-test.properties")
 public class UserRepositoryTests {
 
     @Autowired

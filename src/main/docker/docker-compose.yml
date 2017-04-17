@@ -9,9 +9,11 @@ services:
       environment:
           - POSTGRES_USER=classregister
           - POSTGRES_PASSWORD=changeit
+      networks:
+      - classregister_network
 
   users:
-    image: users:0.1.0
+    image: users:0.2.0-SNAPSHOT
     container_name: classregister_users
     cap_drop:
           - ALL
@@ -29,6 +31,12 @@ services:
           - "6002:6002"
     depends_on:
       - postgres
-    network_mode: "host"
+    networks:
+    - classregister_network
+
+
+networks:
+  classregister_network:
+
 
 

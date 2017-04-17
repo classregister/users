@@ -8,10 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class UserBody {
 
     @NotBlank
-    private String login;
+    private final String login;
 
     @NotBlank
-    private String password;
+    private final String password;
 
     @JsonCreator
     public UserBody(@JsonProperty("login") String login, @JsonProperty("password") String password) {

@@ -31,7 +31,7 @@ public class SwaggerConfiguration {
     }
 
     private ApiInfo createApiInfo() {
-        Contact contact = new Contact("Krzysztof Janiec", "https://classregister.ovh", "krzysztof.janiec@poczta.pl");
+        Contact contact = new Contact("Krzysztof Janiec", "http://classregister.ovh", "krzysztof.janiec@poczta.pl");
 
         return new ApiInfoBuilder().version("1.0")
                                    .description("Users api documentation for class register application")
