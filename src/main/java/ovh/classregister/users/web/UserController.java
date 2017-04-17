@@ -53,7 +53,7 @@ public class UserController {
                        })
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<User> getUsers(@ApiIgnore @PageableDefault final Pageable pageable) {
+    public Page<User> getUsers(@ApiIgnore @PageableDefault Pageable pageable) {
         return userService.getUsers(pageable);
     }
 
@@ -61,7 +61,7 @@ public class UserController {
                   notes = "Gets specific user login and password")
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public User getUser(@PathVariable final long id) {
+    public User getUser(@PathVariable long id) {
         return userService.getUser(id);
     }
 
@@ -85,7 +85,7 @@ public class UserController {
                   notes = "Removes specific user entry")
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable final long id) {
+    public void deleteUser(@PathVariable long id) {
         userService.deleteUser(id);
     }
 }
