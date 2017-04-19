@@ -1,66 +1,72 @@
-node {
-	try {
+pipeline {
+	agent any
 
-		stage('checkout project') {
-			checkout scm
-		}
-
-		stage('clean') {
-			sh "./gradlew clean"
-		}
+	stages {
 		stage('build') {
-			sh "./gradlew build"
-		}
-		stage('code analysis') {
-			withSonarQubeEnv {
+			steps {
+				checkout scm
+
+				sh "./gradlew clean build"
+
+				sh './gradlew cucumber'
+
+				sh './gradlew pitest'
+
 				sh './gradlew sonarqube'
 			}
 		}
 
-		stage('mutation tests') {
-			sh './gradlew pitest'
-		}
-		stage('acceptance tests') {
-			sh './gradlew cucumber'
+		stage('performance tests') {
+			steps {
+				sh './gradlew loadTest'
+			}
+
+			post {
+				success {
+					gatlingArchive()
+				}
+			}
 		}
 
 		stage('publishing jars') {
-			def server = Artifactory.server "artifactory_docker"
-			def branchName = env.BRANCH_NAME
+			steps {
+				script {
+					def server = Artifactory.server "artifactory_docker"
+					def branchName = env.BRANCH_NAME
 
-			def jars = resolveArtifactoryPath(branchName)
-			def buildInfo = server.upload spec: jars
+					def jars = resolveArtifactoryUploadSpec(branchName)
+					def buildInfo = server.upload spec: jars
 
-			server.publishBuildInfo buildInfo
+					server.publishBuildInfo buildInfo
+				}
+			}
 		}
-
-		stage('performance tests') {
-			sh './gradlew loadTest'
-			gatlingArchive()
-		}
-
-	} catch (e) {
-		currentBuild.result = "FAILURE"
-		throw e;
 	}
 
+
+	post {
+		always {
+			deleteDir()
+		}
+	}
 }
 
-static String resolveArtifactoryPath(String branchName) {
+
+private static String resolveArtifactoryUploadSpec(String branchName) {
 	def libsDirectory = "libs-snapshot-local"
 
 	if (branchName.startsWith("release")) {
 		libsDirectory = "libs-release-local"
 	}
 
-	def jars = """{
-                   "files": [
-                        {
-                            "pattern": "build/libs/*.jar",
-                            "target": "${libsDirectory}/ovh/classregister/users/"
-                        }
-                   ]
+	def uploadSpec = """{
+        "files": [
+            {
+                "pattern": "build/libs/*.jar",
+                "target": "${libsDirectory}/ovh/classregister/users/"
+            }
+        ]
     }"""
 
-	return jars;
+	return uploadSpec;
 }
