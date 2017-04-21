@@ -12,6 +12,7 @@ buildscript {
 		classpath "io.spring.gradle:dependency-management-plugin:${depencency_management_plugin_version}"
 		classpath "org.springframework.cloud:spring-cloud-contract-gradle-plugin:${contracts_version}"
 		classpath "org.jfrog.buildinfo:build-info-extractor-gradle:${artifactory_plugin_version}"
+		classpath "mysql:mysql-connector-java:${mysql_connector_version}"
 	}
 }
 
@@ -46,6 +47,8 @@ dependencies {
 	compile("io.springfox:springfox-swagger-ui:${swagger_version}")
 	compile("io.springfox:springfox-swagger2:${swagger_version}")
 	compile("org.postgresql:postgresql")
+	compile("mysql:mysql-connector-java:${mysql_connector_version}")
+	compile("com.microsoft.sqlserver:sqljdbc4:${sql_server_connector_version}")
 	compile("org.apache.commons:commons-lang3:${apache_commons_version}")
 	compile("org.zalando:problem-spring-web:${zalando_problem_spring_version}")
 	compile("org.zalando:problem:${zalando_problem_version}")
