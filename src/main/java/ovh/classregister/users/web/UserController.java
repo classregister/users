@@ -8,6 +8,7 @@ import ovh.classregister.users.domain.UserBody;
 import ovh.classregister.users.service.UserService;
 import springfox.documentation.annotations.ApiIgnore;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -87,5 +89,13 @@ public class UserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable long id) {
         userService.deleteUser(id);
+    }
+
+    @ApiOperation(value = "Search for specific user by login",
+                  notes = "Returns specific user entry or empty response when login does not exist")
+    @GetMapping(value = "/search")
+    @ResponseStatus(HttpStatus.OK)
+    public User searchForUserByLogin(@RequestParam @NotEmpty String login) {
+        return userService.searchForUserByLogin(login);
     }
 }

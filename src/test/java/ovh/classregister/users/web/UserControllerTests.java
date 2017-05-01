@@ -63,7 +63,6 @@ public class UserControllerTests {
         String expectedJson = createJson(expectedUser);
         given(userService.getUser(userId)).willReturn(expectedUser);
 
-
         mockMvc.perform(get("/users/" + userId).accept(MediaType.APPLICATION_JSON_VALUE))
                .andExpect(status().isOk())
                .andExpect(content().json(expectedJson));
@@ -74,9 +73,8 @@ public class UserControllerTests {
         long userId = 0;
         UserBody userBody = new UserBody("someUser", "password");
         String bodyJson = createJson(userBody);
-        User expectedUser = createUser(userId,"someUser", "password");
+        User expectedUser = createUser(userId, "someUser", "password");
         given(userService.addUser(userBody)).willReturn(expectedUser);
-
 
         mockMvc.perform(post("/users").content(bodyJson)
                                       .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -92,7 +90,6 @@ public class UserControllerTests {
         User expectedUser = createUser(userId, "someUser", "password");
         given(userService.editUser(userId, userBody)).willReturn(expectedUser);
 
-
         mockMvc.perform(put("/users/" + userId).content(bodyJson)
                                                .contentType(MediaType.APPLICATION_JSON_VALUE)
                                                .accept(MediaType.APPLICATION_JSON_VALUE))
@@ -105,6 +102,27 @@ public class UserControllerTests {
 
         mockMvc.perform(delete("/users/" + userId))
                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void shouldSearchForUserByLogin() throws Exception {
+        String login = "user_login";
+        User expectedUser = createUser(1, login, "password");
+        String expectedJson = createJson(expectedUser);
+        given(userService.searchForUserByLogin(login)).willReturn(expectedUser);
+
+        mockMvc.perform(get("/users/search?login=" + login).accept(MediaType.APPLICATION_JSON_VALUE))
+               .andExpect(status().isOk())
+               .andExpect(content().json(expectedJson));
+    }
+
+    @Test
+    public void shouldNotSearchUserAndReturnEmptyContent() throws Exception {
+        String login = "user_login";
+
+        mockMvc.perform(get("/users/search?login=" + login).accept(MediaType.APPLICATION_JSON_VALUE))
+               .andExpect(status().isOk())
+               .andExpect(content().string(""));
     }
 
     private Page<User> createPageWithUsers(final Pageable pageable) {

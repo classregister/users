@@ -39,10 +39,11 @@ public class UpdateUserScenario {
 
     @When("^the client makes a call to update user$")
     public void updateUserData() throws Throwable {
+        userBody = new UserBody("userLoginUpdated", "userPassword");
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         HttpEntity<UserBody> httpEntity = new HttpEntity<>(userBody, httpHeaders);
-        int id = 3;
+        int id = 7;
         final String url = CucumberConfig.URL + id;
         response = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, User.class);
     }

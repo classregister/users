@@ -10,10 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "login"))
 public class User implements Serializable {
 
     @Id
@@ -51,6 +52,14 @@ public class User implements Serializable {
     }
 
     @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).append(id)
+                                          .append(login)
+                                          .append(password)
+                                          .toHashCode();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -66,14 +75,6 @@ public class User implements Serializable {
                                   .append(login, user.login)
                                   .append(password, user.password)
                                   .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37).append(id)
-                                          .append(login)
-                                          .append(password)
-                                          .toHashCode();
     }
 
     @Override

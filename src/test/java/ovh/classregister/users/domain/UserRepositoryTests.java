@@ -114,6 +114,31 @@ public class UserRepositoryTests {
                                             .isEqualTo(expectedResult);
     }
 
+    @Test
+    public void shouldFindUserByLogin() {
+         // given
+        String login = "user";
+        User expectedResult = createUser(1L, login, "password");
+
+        // when
+        User result = userRepository.findByLogin(login);
+
+        // then
+        assertThat(result).isEqualToComparingFieldByField(expectedResult);
+    }
+
+    @Test
+    public void shouldNotFindUserByLogin() {
+         // given
+        String login = "user43";
+
+        // when
+        User result = userRepository.findByLogin(login);
+
+        // then
+        assertThat(result).isNull();
+    }
+
     private List<User> prepareUsers() {
         User user = createUser(1, "user", "password");
         User user2 = createUser(2, "user2", "password");

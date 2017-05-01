@@ -24,7 +24,7 @@ public class DeleteUserScenario {
 
     @Given("^the user already exists$")
     public void prepareExampleUserData() throws Throwable {
-        UserBody userBody = new UserBody("userLogin", "userPassword");
+        UserBody userBody = new UserBody("userLogin2", "userPassword");
         restTemplate.postForEntity(CucumberConfig.URL, userBody, User.class);
     }
 
