@@ -23,8 +23,8 @@ import java.util.Map;
 @TestPropertySource(value = "classpath:application-test.properties")
 public class GetUsersScenario {
 
-    private static final String USER_LOGIN = "userLogin3";
-    private static final String USER_PASSWORD = "userPassword3";
+    private static final String USER_LOGIN = "userLogin";
+    private static final String USER_PASSWORD = "userPassword";
     private static final int TOTAL_ELEMENTS = 5;
     private final RestTemplate restTemplate = new RestTemplate();
 
@@ -32,10 +32,12 @@ public class GetUsersScenario {
 
     @Given("^the example users data$")
     public void preparedExampleUsersData() throws Throwable {
-        UserBody userBody = new UserBody(USER_LOGIN, USER_PASSWORD);
+        UserBody userBody = createUserBody(4);
+        UserBody userBody2 = createUserBody(5);
+        UserBody userBody3 = createUserBody(6);
         restTemplate.postForEntity(CucumberConfig.URL, userBody, User.class);
-        restTemplate.postForEntity(CucumberConfig.URL, userBody, User.class);
-        restTemplate.postForEntity(CucumberConfig.URL, userBody, User.class);
+        restTemplate.postForEntity(CucumberConfig.URL, userBody2, User.class);
+        restTemplate.postForEntity(CucumberConfig.URL, userBody3, User.class);
     }
 
     @When("^the client makes a call to get users")
@@ -49,5 +51,9 @@ public class GetUsersScenario {
         Map<String, Object> result = (LinkedHashMap<String, Object>) response.getBody();
         List<User> content = (List<User>) result.get("content");
         assertThat(content).hasSize(TOTAL_ELEMENTS);
+    }
+
+    private UserBody createUserBody(int id) {
+        return new UserBody(USER_LOGIN + id, USER_PASSWORD);
     }
 }

@@ -44,6 +44,10 @@ public class UserService {
         userRepository.delete(id);
     }
 
+    public User searchForUserByLogin(String login) {
+        return userRepository.findByLogin(login);
+    }
+
     private User createUser(UserBody userBody) {
         User user = new User();
         user.setLogin(userBody.getLogin());
@@ -53,7 +57,7 @@ public class UserService {
     }
 
     private void checkRecordId(long id) {
-        if(!userRepository.exists(id)) {
+        if (!userRepository.exists(id)) {
             throw new ResourceNotFoundException(id);
         }
     }

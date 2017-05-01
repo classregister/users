@@ -135,6 +135,18 @@ public class UserServiceTests {
         assertThat(result).isInstanceOf(ResourceNotFoundException.class);
     }
 
+    @Test
+    public void shouldSearchForUserByLogin() {
+        // given
+        final String login = "user_login";
+
+        // when
+        userService.searchForUserByLogin(login);
+
+        // then
+        verify(userRepository).findByLogin(login);
+    }
+
     private User createUser(long id, String login, String password) {
         User user = new User();
         user.setId(id);

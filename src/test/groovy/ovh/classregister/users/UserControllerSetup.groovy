@@ -12,8 +12,6 @@ import ovh.classregister.users.exception.ResourceNotFoundException
 import ovh.classregister.users.service.UserService
 import ovh.classregister.users.web.UserController
 
-import static org.mockito.Matchers.any
-import static org.mockito.Matchers.anyLong
 import static org.mockito.Mockito.*
 
 class UserControllerSetup {
@@ -43,6 +41,9 @@ class UserControllerSetup {
 
 		doAnswer(updateUser()).when(userService)
 		                      .editUser(anyLong(), any(UserBody.class))
+
+		doReturn(createUser()).when(userService)
+		                      .searchForUserByLogin(anyString());
 
 		return userController
 	}
