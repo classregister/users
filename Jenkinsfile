@@ -1,6 +1,11 @@
 pipeline {
 	agent any
 
+	parameters {
+		booleanParam(defaultValue: false, description: 'Do you wanna release this version?', name: 'release')
+		string(defaultValue: "", description: 'New release version', name: 'releaseVersion')
+	}
+
 	stages {
 		stage('build') {
 			steps {
@@ -13,6 +18,8 @@ pipeline {
 				sh './gradlew pitest'
 
 				sh './gradlew sonarqube'
+
+				sh './gradlew buildDocker -x check'
 			}
 		}
 
@@ -41,8 +48,29 @@ pipeline {
 				}
 			}
 		}
-	}
 
+		stage('deploy') {
+			when {
+				expression {
+					return env.RELEASE == "true"
+				}
+			}
+
+			steps {
+				script {
+					withCredentials([[$class          : 'UsernamePasswordMultiBinding', credentialsId: 'DOCKER_HUB',
+					                  usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+						sh 'docker login -u "$USERNAME" -p "$PASSWORD"'
+						sh "docker tag users:${env.releaseVersion} classregister/users:${env.releaseVersion}"
+						sh "docker tag users:${env.releaseVersion} classregister/users:latest"
+						sh "docker push classregister/users:${env.releaseVersion}"
+						sh 'docker push classregister/users:latest'
+						sh 'docker logout'
+					}
+				}
+			}
+		}
+	}
 
 	post {
 		always {
