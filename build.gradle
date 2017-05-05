@@ -36,12 +36,14 @@ repositories {
 
 configurations {
 	compile.exclude module: "spring-boot-starter-tomcat"
+	compile.exclude module: "spring-boot-starter-actuator"
 	testCompile.exclude module: "spring-boot-starter-logging"
 	testCompile.exclude module: "slf4j-simple"
 }
 
 dependencies {
 	compile("org.springframework.boot:spring-boot-starter-web:${spring_boot_version}")
+	compile("net.logstash.logback:logstash-logback-encoder:${logback_endcoder_version}")
 	compile("org.springframework.boot:spring-boot-starter-undertow:${spring_boot_version}")
 	compile("org.springframework.boot:spring-boot-starter-data-jpa")
 	compile("io.springfox:springfox-swagger-ui:${swagger_version}")
@@ -67,4 +69,5 @@ apply from: "gradle/cucumber.gradle"
 apply from: "gradle/cdc.gradle"
 apply from: "gradle/artifactory.gradle"
 apply from: "gradle/gatling.gradle"
+apply from: "gradle/zipkin.gradle"
 
